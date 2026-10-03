@@ -76,13 +76,7 @@ npm run sports     # Top 5 sports stories
 
 ---
 
-## Security Features
 
-- **Input Sanitization**: Query strings and parameters are strictly validated using `URLSearchParams` to prevent URL injection and SSRF.
-- **Control Character Stripping**: Control and escape sequences (`\u0000-\u001F`, `\u007F-\u009F`) in headlines/content from upstream feeds are stripped to prevent ANSI terminal escape injection.
-- **Protocol Validation**: URLs are validated to strictly enforce `http:` / `https:` protocols.
-- **Request Safeguards**: Requests include timeouts and user-agent headers to prevent hanging connections.
-- **Bounded Resource Consumption**: Article limits are enforced with min/max bounds (1-50) to prevent memory exhaustion.
 
 ---
 
