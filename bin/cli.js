@@ -4,22 +4,26 @@ import { Command } from 'commander';
 import pc from 'picocolors';
 import { fetchNews, TOPICS } from '../src/news.js';
 import { renderNews } from '../src/formatter.js';
+import { runInteractive } from '../src/interactive.js';
 
 const program = new Command();
 
 program
   .name('gnews')
-  .description('A command-line tool to get the latest news from Google')
-  .version('1.0.0')
-  .option('-s, --search <query>', 'search news for a specific query')
-  .option('-t, --topic <topic>', 'filter by topic (world, tech, business, sports, science, health, entertainment)')
-  .option('-l, --limit <number>', 'number of articles to show (default: 10)', '10')
-  .option('-d, --detailed', 'display article snippets/summaries', false)
-  .option('-j, --json', 'output raw JSON data', false)
-  .option('--lang <language>', 'language code (default: en-US)', 'en-US')
-  .option('--region <country>', 'country code (default: US)', 'US')
-  .option('--list-topics', 'list all available topics')
-  .action(async (options) => {
+  .description('Easy command-line tool for Google News')
+  .version('1.1.0')
+  .argument('[queryOrTopic]', 'Topic (tech, world, sports...) or search keyword')
+  .argument('[count]', 'Number of news items to fetch')
+  .option('-i, --interactive', 'Run in interactive menu mode')
+  .option('-s, --search <query>', 'Search news by keyword')
+  .option('-t, --topic <topic>', 'Filter by topic')
+  .option('-l, --limit <number>', 'Number of articles to show', '5')
+  .option('-d, --detailed', 'Display article snippets', false)
+  .option('-j, --json', 'Output raw JSON data', false)
+  .option('--lang <language>', 'Language code', 'en-US')
+  .option('--region <country>', 'Country code', 'US')
+  .option('--list-topics', 'List available topics')
+  .action(async (queryOrTopic, count, options) => {
     if (options.listTopics) {
       console.log(pc.bold('\nAvailable Topics:'));
       console.log(
@@ -30,12 +34,40 @@ program
       return;
     }
 
-    try {
-      const limit = parseInt(options.limit, 10) || 10;
+    const hasFlags =
+      options.search ||
+      options.topic ||
+      options.json ||
+      options.detailed ||
+      options.interactive;
+    const hasArgs = Boolean(queryOrTopic);
 
+    if (options.interactive || (!hasArgs && !hasFlags && process.stdin.isTTY)) {
+      await runInteractive();
+      return;
+    }
+
+    let topic = options.topic;
+    let query = options.search;
+    let limit = parseInt(count || options.limit, 10) || 5;
+
+    if (queryOrTopic) {
+      if (/^\d+$/.test(queryOrTopic)) {
+        limit = parseInt(queryOrTopic, 10);
+      } else {
+        const lower = queryOrTopic.toLowerCase();
+        if (TOPICS[lower]) {
+          topic = lower;
+        } else {
+          query = queryOrTopic;
+        }
+      }
+    }
+
+    try {
       const data = await fetchNews({
-        query: options.search,
-        topic: options.topic,
+        query,
+        topic,
         limit,
         language: options.lang,
         region: options.region,

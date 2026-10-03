@@ -1,50 +1,101 @@
-# Google News CLI (`gnews`)
+# 📰 Google News CLI
 
-A fast, lightweight Node.js command-line tool to fetch the latest headlines, topic feeds, and custom search results directly from Google News in your terminal. No API key required!
+The easiest way to read the latest Google News right from your command line.
 
-## Features
+No API keys, no complicated flags, no configuration needed!
 
-- ⚡ **Zero API Keys**: Uses public Google News RSS feeds.
-- 🔍 **Search & Filter**: Search news by keyword, or filter by topic (`tech`, `world`, `business`, `sports`, etc.).
-- 🌐 **Localization**: Supports language and region/country flags.
-- 🎨 **Clean Terminal Output**: Formatted with colored source tags, time ago timestamps, and clickable article links.
-- 📋 **JSON Output**: Easily pipe news to `jq`, scripts, or other CLI tools.
+---
 
-## Installation
+## ⚡ Super Easy Usage
+
+### 1. Interactive Menu (Easiest!)
+Just run:
+```bash
+npm start
+```
+*or*
+```bash
+node .
+```
+You will get an interactive menu with arrow keys:
+```
+? What news would you like to see?
+  > 🔥 Top Stories
+    💻 Technology
+    💼 Business
+    🌍 World News
+    ⚽ Sports
+    🔬 Science
+    🏥 Health
+    🎬 Entertainment
+    🔍 Search by keyword...
+    ❌ Exit
+```
+
+---
+
+### 2. Direct Commands (No Flags Needed!)
+
+Just type what you want directly:
 
 ```bash
-# Clone the repository
-git clone <your-repo-url>
-cd my-first-project
+# Get top news
+node . 5
 
-# Install dependencies
+# Get news by topic
+node . tech
+node . world
+node . sports
+node . business
+
+# Search for any topic or keyword directly
+node . "artificial intelligence"
+node . bitcoin
+node . "spacex" 3
+```
+
+---
+
+### 3. npm Shortcuts
+
+```bash
+npm run top        # Top 5 news
+npm run tech       # Top 5 tech news
+npm run world      # Top 5 world news
+npm run business   # Top 5 business news
+npm run sports     # Top 5 sports news
+```
+
+---
+
+### 4. Advanced Options (Optional Flags)
+
+| Command | What it does |
+|---------|--------------|
+| `node . -l 10` | Show 10 stories instead of 5 |
+| `node . -d` | Show detailed news summaries |
+| `node . --json` | Output raw JSON (great for scripts) |
+| `node . --lang fr --region FR` | Get news in different languages/countries |
+
+---
+
+## 🚀 Installation & Setup
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/Ahmad70999/google-news-cli.git
+cd google-news-cli
+
+# 2. Install dependencies
 npm install
 
-# (Optional) Link globally so you can use 'gnews' anywhere
+# 3. (Optional) Run from anywhere in your terminal
 npm link
-```
-
-## Usage
-
-### Top Stories
-```bash
-node ./bin/cli.js
-# Or if linked globally:
+# Then you can simply run:
 gnews
+gnews tech
+gnews "space"
 ```
-
-### Options
-
-| Flag | Description | Example |
-|------|-------------|---------|
-| `-l, --limit <num>` | Number of articles to retrieve (default: 10) | `gnews -l 5` |
-| `-t, --topic <name>` | News topic (`tech`, `business`, `world`, `sports`, `science`, `health`, `entertainment`) | `gnews -t tech` |
-| `-s, --search <query>` | Search query for specific topics/events | `gnews -s "AI models"` |
-| `-d, --detailed` | Display article summaries/snippets | `gnews -d` |
-| `-j, --json` | Output raw JSON data | `gnews -s "Apple" --json` |
-| `--lang <code>` | Language code (default: `en-US`) | `gnews --lang en-US` |
-| `--region <code>` | Region/country code (default: `US`) | `gnews --region US` |
-| `--list-topics` | List available topic categories | `gnews --list-topics` |
 
 ## License
 
