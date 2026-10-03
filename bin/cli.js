@@ -34,15 +34,10 @@ program
       return;
     }
 
-    const hasFlags =
-      options.search ||
-      options.topic ||
-      options.json ||
-      options.detailed ||
-      options.interactive;
-    const hasArgs = Boolean(queryOrTopic);
+    const passedArgs = process.argv.slice(2);
+    const hasExplicitArgsOrFlags = passedArgs.length > 0;
 
-    if (options.interactive || (!hasArgs && !hasFlags && process.stdin.isTTY)) {
+    if (options.interactive || (!hasExplicitArgsOrFlags && process.stdin.isTTY)) {
       await runInteractive();
       return;
     }

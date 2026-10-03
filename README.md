@@ -27,6 +27,16 @@ Select a category:
   Health
   Entertainment
   Search by keyword
+  Search by flags (filters)
+  Exit
+```
+
+Inside any category, you can easily go back to categories or search by flags:
+```text
+Options:
+> Back to categories
+  Search by flags in this category
+  Refresh news
   Exit
 ```
 
@@ -69,12 +79,14 @@ npm run sports     # Top 5 sports stories
 | Flag | Description | Example |
 |------|-------------|---------|
 | `-l, --limit <num>` | Number of articles (1-50, default: 5) | `node . -l 10` |
+| `-s, --search <query>` | Search news by keyword | `node . -s "quantum"` |
+| `-t, --topic <topic>` | Filter news by topic | `node . -t tech` |
 | `-d, --detailed` | Display article summaries | `node . -d` |
 | `-j, --json` | Output clean JSON data | `node . tech --json` |
 | `--lang <code>` | Language code (default: `en-US`) | `node . --lang en-US` |
 | `--region <code>` | Country code (default: `US`) | `node . --region US` |
 
-
+---
 
 ## Installation
 
