@@ -79,7 +79,7 @@ npm run sports     # Top 5 sports stories
 ## Installation
 
 ```bash
-git clone https://github.com/Ahmad70999/google-news-cli.git
+git clone https://github.com/NebulaScript3214/google-news-cli.git
 cd google-news-cli
 npm install
 
