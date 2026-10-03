@@ -74,11 +74,7 @@ npm run sports     # Top 5 sports stories
 | `--lang <code>` | Language code (default: `en-US`) | `node . --lang en-US` |
 | `--region <code>` | Country code (default: `US`) | `node . --region US` |
 
----
 
-
-
----
 
 ## Installation
 
