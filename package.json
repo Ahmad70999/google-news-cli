@@ -1,0 +1,28 @@
+{
+  "name": "google-news-cli",
+  "version": "1.0.0",
+  "description": "A Node.js command-line application to fetch latest news from Google",
+  "type": "module",
+  "main": "src/news.js",
+  "bin": {
+    "gnews": "./bin/cli.js"
+  },
+  "scripts": {
+    "start": "node ./bin/cli.js",
+    "top": "node ./bin/cli.js",
+    "tech": "node ./bin/cli.js -t tech"
+  },
+  "keywords": [
+    "google-news",
+    "cli",
+    "rss",
+    "news"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^14.0.3",
+    "picocolors": "^1.1.1",
+    "rss-parser": "^3.13.0"
+  }
+}
